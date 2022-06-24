@@ -1,0 +1,61 @@
+${#
+ * Copyright Studio 42 GmbH 2021. All rights reserved.
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * For details to the License read https://www.s42m.de/license
+}>
+${set fileName className ".java"}>
+${assert user.firstName:notBlank "user.firstName must contain a valid not blank string"}>
+${set num 3.5}>
+${inc num}>
+${num}
+${set firstTitle "new"}${set lastTitle firstTitle:upperCase}Hello ${user.firstName:upperCase},
+
+${if num 4.5}
+${# Execute Java Code }>
+${$
+
+int _x = 123;
+int _y = 234;
+context.setBinding("calculated", 1024 * _x - 5 + _y);
+
+}>
+how are you today? Number of the day is ${calculated}!
+${/if}
+
+${section CODEEXAMPLES}>
+List of Callable:
+${# Load and Call Java Code }>
+${load myFunction "de.s42.dlt.TestCallback"}>
+* ${call myFunction num 3.0 3 "3"}
+* ${call myFunction 4.2}
+* ${call myFunction "6"}
+* ${call myFunction num}
+* ${call myFunction}
+* ${myFunction num "5.0" 23.6}
+* ${myFunction}
+
+List of Bean:
+${# Instantiate Bean and interact it }>
+${load myUser "de.s42.dlt.Main$User"}>
+${set myUser.firstName user.firstName:upperCase}>
+${#$ de.s42.dlt.Main.User _usr = (de.s42.dlt.Main.User)context.getBinding("myUser"); _usr.setFirstName("Hallo");}
+Firstname: ${myUser.firstName}
+${/section}>
+
+Here are a few interesting points:
+
+${for info user.infos}>
+* ${info}${ifnot info#first}${ifnot info#last}(YAY)${/ifnot}${/ifnot}${if info#first} (${firstTitle})${/if}${if info#last} (${lastTitle})${/if}
+${/for}>
+
+${if goodBye}>
+Cu
+${/if}>
+
+Service Team

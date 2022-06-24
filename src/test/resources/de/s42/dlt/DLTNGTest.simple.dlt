@@ -1,0 +1,6 @@
+${# 
+ *
+ * This is a simple template example
+ *
+}>
+This is a simple template. It was generated at ${now.iso}

@@ -1,0 +1,20 @@
+# Compiled class file
+*.class
+
+# Log files
+/log/
+*.log
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+# all built files
+/target/
+/src/main/resources/de/s42/dlt/dlt.version

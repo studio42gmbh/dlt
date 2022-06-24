@@ -1,0 +1,51 @@
+${set name "Thorsten"}>
+${set adCampaignTemplate "DLTNGTest.template.adcampaign.dlt"}>
+${load LOAD_INIT "de.s42.dlt.DLTNGTest$LoadInit" name}>
+${set user.firstName "Stefan"}>
+${# 
+ *
+ * This is a simple Email Template Example
+ *
+}>
+${assert user:exists "user has to be set"}>
+${set productNameUppercase productName:upperCase}>
+Dear ${user.firstName},
+
+welcome to our ${productName} Community.
+${if user.infos:length:greater0}>
+
+Here is your favorite ${user.infos:length} infos:
+${for info user.infos}>
+* ${info}${if info#first} (TOP Info)${/if}
+${/for}>
+${/if}>
+
+Your ${productNameUppercase} Team
+
+--
+${if ADCAMPAIGN}>
+
+${include adCampaignTemplate}
+${else}>
+
+We have interesting offers under: www.test.com
+${/if}>
+
+This mail was generated at ${now.iso}
+The security code is ${$
+
+	// here you can write java code directly if necessary test {escaped brackets\}
+	//this is as fallback -> better use TemplateCallable or TemplateLoadable
+	java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+	String toHash = (String)context.resolveBinding("name");
+	md.update(toHash.getBytes());
+	String md5Hash = de.s42.base.conversion.ConversionHelper.bytesToHex(md.digest());
+	context.setBinding("securityCode", md5Hash);
+	context.append(md5Hash);
+}>
+${section SENDINFO}>
+Recipient: ${user.firstName}
+AdCampaign: ${ADCAMPAIGN}
+SecurityCode: ${securityCode}
+Date: ${now.iso}>
+${/section}>
