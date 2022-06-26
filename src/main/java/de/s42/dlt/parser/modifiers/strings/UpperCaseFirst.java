@@ -11,6 +11,7 @@
  */
 package de.s42.dlt.parser.modifiers.strings;
 
+import de.s42.base.strings.StringHelper;
 import de.s42.dlt.parser.Modifier;
 
 /**
@@ -38,6 +39,6 @@ public class UpperCaseFirst implements Modifier<String, String>
 			return null;
 		}
 
-		return value.substring(0, 1).toUpperCase() + value.substring(1);
+		return StringHelper.upperCaseFirst(value);
 	}
 }
