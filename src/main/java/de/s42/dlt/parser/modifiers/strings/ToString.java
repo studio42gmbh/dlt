@@ -11,6 +11,7 @@
  */
 package de.s42.dlt.parser.modifiers.strings;
 
+import de.s42.base.conversion.ConversionHelper;
 import de.s42.dlt.parser.Modifier;
 
 /**
@@ -32,10 +33,6 @@ public class ToString implements Modifier<Object, String>
 	@Override
 	public String apply(Object value)
 	{
-		if (value == null) {
-			return "";
-		}
-
-		return value.toString();
+		return ConversionHelper.convert(value, String.class);
 	}
 }
