@@ -23,6 +23,10 @@ module de.sft.dlt
 	exports de.s42.dlt;
 	exports de.s42.dlt.parser;
 	exports de.s42.dlt.parser.modifiers;
-
+	exports de.s42.dlt.parser.modifiers.arrays;
+	exports de.s42.dlt.parser.modifiers.math;
+	exports de.s42.dlt.parser.modifiers.strings;
+	exports de.s42.dlt.parser.modifiers.types;
+	
 	opens de.s42.dlt;
 }
