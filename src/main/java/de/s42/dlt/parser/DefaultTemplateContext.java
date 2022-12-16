@@ -38,12 +38,14 @@ import de.s42.dlt.parser.modifiers.types.IsInteger;
 import de.s42.dlt.parser.modifiers.types.IsLong;
 import de.s42.dlt.parser.modifiers.types.IsString;
 import de.s42.dlt.parser.modifiers.strings.NotBlank;
+import de.s42.dlt.parser.modifiers.strings.QuoteString;
 import de.s42.dlt.parser.modifiers.strings.RemoveWhiteSpaces;
 import de.s42.dlt.parser.modifiers.strings.ThreeDigit;
 import de.s42.dlt.parser.modifiers.strings.ToString;
 import de.s42.dlt.parser.modifiers.strings.TwoDigit;
 import de.s42.dlt.parser.modifiers.strings.UpperCase;
 import de.s42.dlt.parser.modifiers.strings.UpperCaseFirst;
+import de.s42.dlt.parser.modifiers.types.UnwrapPrimitives;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -91,6 +93,8 @@ public class DefaultTemplateContext extends AbstractTemplateContext
 		prepareModifier(new IsString());
 		prepareModifier(new IsArray());
 		prepareModifier(new IsNotEmptyArray());
+		prepareModifier(new UnwrapPrimitives());
+		prepareModifier(new QuoteString());
 		prepareModifier(new UpperCase());
 		prepareModifier(new UpperCaseFirst());
 		prepareModifier(new LowerCase());

@@ -1,0 +1,19 @@
+package ${type.package};
+
+import ${importClassFQN};
+
+public class ${type.name} extends ${type.super.name}
+{
+	protected ${attribute.dataType} ${attribute.name};
+
+	public ${attribute.dataType} get${attribute.name:upperCaseFirst}()
+	{
+		return ${attribute.name};
+	}
+
+	public void set${attribute.name:upperCaseFirst}(${attribute.dataType} ${attribute.name})
+	{
+		this.${attribute.name} = ${attribute.name};
+	}
+}
+
