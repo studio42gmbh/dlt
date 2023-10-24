@@ -74,6 +74,11 @@ public final class DLT
 	{
 		return compile(source, new TemplateCompilerOptions());
 	}
+	
+	public final static CompiledTemplate compile(String source, String templateId) throws Exception
+	{
+		return compile(source, new TemplateCompilerOptions(templateId));
+	}	
 
 	public final static CompiledTemplate compile(String source, TemplateCompilerOptions options) throws Exception
 	{

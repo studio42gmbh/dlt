@@ -29,6 +29,15 @@ public class TemplateCompilerOptions
 	private boolean debug = false;
 	private boolean cacheCompiledTemplate = true;
 
+	public TemplateCompilerOptions()
+	{
+	}
+
+	public TemplateCompilerOptions(String templateId)
+	{
+		this.templateId = templateId;
+	}
+
 	public String getClassName()
 	{
 		return className;
