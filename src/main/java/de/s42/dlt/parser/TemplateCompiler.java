@@ -662,8 +662,7 @@ public final class TemplateCompiler
 
 			if (compiled != null) {
 
-				log.debug("Using cache for {}", cacheKey);
-
+				//log.debug("Using cache for", cacheKey);
 				return compiled;
 			}
 		}
