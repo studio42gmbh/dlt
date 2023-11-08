@@ -5,64 +5,65 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.s42</groupId>
 	<artifactId>dlt</artifactId>
-	<version>0.1.0</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>14</maven.compiler.source>
-		<maven.compiler.target>14</maven.compiler.target>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.antlr</groupId>
 			<artifactId>antlr4-runtime</artifactId>
-			<version>4.11.1</version>
+			<version>4.13.1</version>
 			<scope>compile</scope>
-			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
-			<version>20210307</version>
+			<version>20231013</version>
 			<scope>compile</scope>
-			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>de.s42</groupId>
 			<artifactId>log42</artifactId>
-			<version>0.1.0</version>
+			<version>1.0.0</version>
 			<scope>compile</scope>
-			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>de.s42</groupId>
 			<artifactId>base42</artifactId>
-			<version>1.0.2</version>
+			<version>1.0.3</version>
 			<scope>compile</scope>
-			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>de.s42</groupId>
 			<artifactId>dl</artifactId>
-			<version>0.1.0</version>
+			<version>1.0.0</version>
 			<scope>compile</scope>
-			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>7.4.0</version>
+			<version>7.8.0</version>
 			<scope>test</scope>
-			<type>jar</type>
 		</dependency>
 	</dependencies>
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub studio42 GmbH Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/studio42gmbh/dlt</url>
+		</repository>
+	</distributionManagement>
 	<build>
 		<plugins>
 			<plugin>
 				<!-- https://www.antlr.org/api/maven-plugin/latest/index.html -->
 				<groupId>org.antlr</groupId>
 				<artifactId>antlr4-maven-plugin</artifactId>
-				<version>4.11.1</version>
+				<version>4.13.1</version>
 				<executions>
 					<execution>
 						<goals>
@@ -73,7 +74,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
-				<version>3.0.0</version>
+				<version>3.1.0</version>
 				<executions>
 					<execution>
 						<phase>generate-resources</phase>
@@ -102,7 +103,7 @@
 				<!-- https://maven.apache.org/surefire/maven-surefire-plugin/examples/testng.html -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.0.0-M5</version>
+				<version>3.2.1</version>
 				<configuration>
 					<argLine>--add-modules de.sft.dlt -Dfile.encoding=UTF-8 -ea</argLine>
 				</configuration>
@@ -111,7 +112,7 @@
 				<!-- https://maven.apache.org/plugins/maven-compiler-plugin/ -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
+				<version>3.11.0</version>
 				<configuration>
 					<showDeprecation>true</showDeprecation>
 				</configuration>
@@ -120,7 +121,7 @@
 				<!-- https://maven.apache.org/plugins/maven-dependency-plugin/ -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
-				<version>3.2.0</version>
+				<version>3.6.1</version>
 				<executions>
 					<execution>
 						<id>copy-dependencies</id>
@@ -140,7 +141,7 @@
 				<!-- https://maven.apache.org/plugins/maven-jar-plugin/ -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.2.0</version>
+				<version>3.3.0</version>
 				<configuration>
 					<archive>
 						<manifestEntries>
@@ -153,7 +154,7 @@
 				<!-- https://maven.apache.org/plugins/maven-javadoc-plugin/aggregate-mojo.html -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.3.1</version>
+				<version>3.6.0</version>
 				<configuration>
 					<outputDirectory>${project.basedir}/docs</outputDirectory>
 					<reportOutputDirectory>${project.basedir}/docs</reportOutputDirectory>
@@ -165,7 +166,7 @@
 				<!-- https://maven.apache.org/plugins/maven-install-plugin/ -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-install-plugin</artifactId>
-				<version>3.0.0-M1</version>
+				<version>3.1.1</version>
 			</plugin>
 		</plugins>		
 	</build>
