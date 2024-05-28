@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.s42</groupId>
 	<artifactId>dlt</artifactId>
-	<version>1.0.2</version>
+	<version>1.0.3-DEV</version>
 	<packaging>jar</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -13,15 +13,17 @@
 	</properties>
 	<dependencies>
 		<dependency>
+			<!-- https://github.com/studio42gmbh/dl -->
 			<groupId>de.s42</groupId>
 			<artifactId>dl</artifactId>
-			<version>1.0.2</version>
+			<version>1.0.3-DEV</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
+			<!-- https://testng.org/ -->
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>7.9.0</version>
+			<version>7.10.1</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -89,7 +91,7 @@
 				<!-- https://maven.apache.org/plugins/maven-compiler-plugin/ -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.12.1</version>
+				<version>3.13.0</version>
 				<configuration>
 					<showDeprecation>true</showDeprecation>
 				</configuration>
