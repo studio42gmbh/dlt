@@ -1,12 +1,12 @@
 /*
  * Copyright Studio 42 GmbH 2021. All rights reserved.
- *  
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *  
+ *
  * For details to the License read https://www.s42m.de/license
  */
 package de.s42.dlt;
@@ -26,6 +26,7 @@ import org.testng.annotations.Test;
  */
 public class ModifierNGTest
 {
+
 	@Test
 	public void evaluateModifierExists() throws Exception
 	{
@@ -64,7 +65,7 @@ public class ModifierNGTest
 	public void evaluateModifierIsUUID() throws Exception
 	{
 		Assert.assertEquals(DLT.evaluate("${test:isUUID}"), "false");
-		Assert.assertEquals(DLT.evaluate("${set test \"123\"}${test:isUUID}"), "false");
+		Assert.assertEquals(DLT.evaluate("${set test \"123\"}${test:isUUID}"), "true");
 		Assert.assertEquals(DLT.evaluate("${set test \"d3348397-0cda-40ec-a7d2-a444964ab7b1\"}${test:isUUID}"), "true");
 	}
 
@@ -311,7 +312,7 @@ public class ModifierNGTest
 		Assert.assertEquals(DLT.evaluate("${set test 2.5}${test:toString}"), "2.5");
 		Assert.assertEquals(DLT.evaluate("${set test \"ABC\"}${test:toString}"), "ABC");
 	}
-	
+
 	@Test
 	public void evaluateModifierSqrt() throws Exception
 	{
