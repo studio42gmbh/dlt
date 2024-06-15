@@ -1,6 +1,6 @@
 ${set name "Thorsten"}>
-${set adCampaignTemplate "DLTNGTest.template.adcampaign.dlt"}>
-${load LOAD_INIT "de.s42.dlt.DLTNGTest$LoadInit" name}>
+${set adCampaignTemplate "DLTTest.template.adcampaign.dlt"}>
+${load LOAD_INIT "de.s42.dlt.DLTTest$LoadInit" name}>
 ${set user.firstName "Stefan"}>
 ${# 
  *

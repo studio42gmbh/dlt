@@ -1,3 +1,3 @@
-${load generateSecretCode "de.s42.dlt.DLTNGTest$SecretCodeGenerator"}>
+${load generateSecretCode "de.s42.dlt.DLTTest$SecretCodeGenerator"}>
 Please check out our new products under: www.test.com/campaign
 For your efforts we provide you with a secret code: ${generateSecretCode user.firstName}

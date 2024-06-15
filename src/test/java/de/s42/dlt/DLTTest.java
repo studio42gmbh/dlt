@@ -32,10 +32,10 @@ import org.testng.annotations.Test;
  *
  * @author Benjamin Schiller
  */
-public class DLTNGTest
+public class DLTTest
 {
 
-	private final static Logger log = LogManager.getLogger(DLTNGTest.class.getName());
+	private final static Logger log = LogManager.getLogger(DLTTest.class.getName());
 
 	public static class TestTemplateContext extends DefaultTemplateContext
 	{
@@ -45,7 +45,7 @@ public class DLTNGTest
 		{
 			//log.info("Resoved {}", templateId);
 
-			return ResourceHelper.getResourceAsString(DLTNGTest.class, templateId).orElseThrow(() -> {
+			return ResourceHelper.getResourceAsString(DLTTest.class, templateId).orElseThrow(() -> {
 				return new FileNotFoundException("Template with id '" + templateId + "' not found");
 			});
 		}
@@ -60,7 +60,7 @@ public class DLTNGTest
 			//log.info("Loaded");
 
 			//load a user into the context
-			DLTNGTest.User user = new DLTNGTest.User();
+			DLTTest.User user = new DLTTest.User();
 			user.setFirstName(parameters[0].toString());
 			user.setInfos(new Object[]{"See", "Think", "Plan", "Act"});
 			context.setBinding("user", user);
@@ -267,7 +267,7 @@ public class DLTNGTest
 	public void evaluateSimpleFromFile() throws Exception
 	{
 		// eval template
-		String result = (new TestTemplateContext()).evaluate("DLTNGTest.simple.dlt");
+		String result = (new TestTemplateContext()).evaluate("DLTTest.simple.dlt");
 
 		printResult(result);
 	}
@@ -278,17 +278,17 @@ public class DLTNGTest
 		TestTemplateContext context = new TestTemplateContext();
 
 		// compile template
-		String content = context.resolveTemplate("DLTNGTest.template.dlt");
+		String content = context.resolveTemplate("DLTTest.template.dlt");
 		TemplateCompilerOptions options = new TemplateCompilerOptions();
 		options.setDebug(true);
-		options.setTemplateId("DLTNGTest.template.dlt");
-		options.setClassName("DLTNGTestTemplate");
+		options.setTemplateId("DLTTest.template.dlt");
+		options.setClassName("DLTTestTemplate");
 		options.setPackageName("de.s42.dlt");
 		CompiledTemplate compiled = DLT.compile(content, options);
 
 		//generate code and write to file
 		String code = DLT.generate(content, options);
-		FilesHelper.writeStringToFile(FilesHelper.getWorkingDirectory().resolve("src/test/java/de/s42/dlt/DLTNGTestTemplate.java"), code);
+		FilesHelper.writeStringToFile(FilesHelper.getWorkingDirectory().resolve("src/test/java/de/s42/dlt/DLTTestTemplate.java"), code);
 
 		//evaluate compiled template
 		context.setBinding("ADCAMPAIGN", true);
