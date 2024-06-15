@@ -1,30 +1,30 @@
 /*
  * Copyright Studio 42 GmbH 2021. All rights reserved.
- *  
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *  
+ *
  * For details to the License read https://www.s42m.de/license
  */
 package de.s42.dlt;
 
 import de.s42.base.compile.InvalidCompilation;
 import de.s42.base.files.FilesHelper;
+import de.s42.base.resources.ResourceHelper;
 import de.s42.dlt.parser.CompiledTemplate;
 import de.s42.dlt.parser.DefaultTemplateContext;
 import de.s42.dlt.parser.TemplateCallable;
 import de.s42.dlt.parser.TemplateCompilerOptions;
 import de.s42.dlt.parser.TemplateContext;
 import de.s42.dlt.parser.TemplateLoadable;
-import de.s42.base.resources.ResourceHelper;
+import de.s42.log.LogManager;
+import de.s42.log.Logger;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
-import de.s42.log.LogManager;
-import de.s42.log.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -111,12 +111,12 @@ public class DLTNGTest
 
 	protected void printResult(String result)
 	{
-		log.debug(
+		/*log.debug(
 			"\n"
 			+ "------------------------------------------------------------------------\n"
 			+ "{}\n"
 			+ "------------------------------------------------------------------------",
-			result);
+			result);*/
 	}
 
 	@Test(expectedExceptions = {InvalidCompilation.class})
