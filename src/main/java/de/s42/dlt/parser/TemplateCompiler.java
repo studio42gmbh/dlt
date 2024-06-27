@@ -1,12 +1,12 @@
 /*
  * Copyright Studio 42 GmbH 2021. All rights reserved.
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * For details to the License read https://www.s42m.de/license
  */
 package de.s42.dlt.parser;
@@ -16,6 +16,8 @@ import de.s42.base.compile.InvalidCompilation;
 import de.s42.dlt.parser.antlr.DLTLexer;
 import de.s42.dlt.parser.antlr.DLTParser;
 import de.s42.dlt.parser.antlr.DLTParserBaseListener;
+import de.s42.log.LogManager;
+import de.s42.log.Logger;
 import java.util.EmptyStackException;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,8 +31,6 @@ import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
-import de.s42.log.LogManager;
-import de.s42.log.Logger;
 
 /**
  *
@@ -286,7 +286,7 @@ public final class TemplateCompiler
 			//simple if -> expects a boolean
 			if (ctx.comparator() == null) {
 				compiled.append("if (Boolean.TRUE.equals(").append(generateContextQuery(ctx.keyword())).append(")) {\n");
-			} //if with a comparator -> 2 
+			} //if with a comparator -> 2
 			else {
 				if (ctx.comparator().keyword() != null) {
 					compiled.append("if (ValidationHelper.isEqual(").append(generateContextQuery(ctx.keyword())).append(", ").append(generateContextQuery(ctx.comparator().keyword())).append(")) {\n");
@@ -324,7 +324,7 @@ public final class TemplateCompiler
 			//simple if -> expects a boolean
 			if (ctx.comparator() == null) {
 				compiled.append("if (!Boolean.TRUE.equals(").append(generateContextQuery(ctx.keyword())).append(")) {\n");
-			} //if with a comparator -> 2 
+			} //if with a comparator -> 2
 			else {
 				if (ctx.comparator().keyword() != null) {
 					compiled.append("if (!ValidationHelper.isEqual(").append(generateContextQuery(ctx.keyword())).append(", ").append(generateContextQuery(ctx.comparator().keyword())).append(")) {\n");
@@ -354,7 +354,7 @@ public final class TemplateCompiler
 			//simple if -> expects a boolean
 			if (ctx.comparator() == null) {
 				compiled.append("} else if (Boolean.TRUE.equals(").append(generateContextQuery(ctx.keyword())).append(")) {\n");
-			} //if with a comparator -> 2 
+			} //if with a comparator -> 2
 			else {
 				if (ctx.comparator().keyword() != null) {
 					compiled.append("} else if (ValidationHelper.isEqual(").append(generateContextQuery(ctx.keyword())).append(", ").append(generateContextQuery(ctx.comparator().keyword())).append(")) {\n");
@@ -382,7 +382,7 @@ public final class TemplateCompiler
 			//simple if -> expects a boolean
 			if (ctx.comparator() == null) {
 				compiled.append("} else if (!Boolean.TRUE.equals(").append(generateContextQuery(ctx.keyword())).append(")) {\n");
-			} //if with a comparator -> 2 
+			} //if with a comparator -> 2
 			else {
 				if (ctx.comparator().keyword() != null) {
 					compiled.append("} else if (!ValidationHelper.isEqual(").append(generateContextQuery(ctx.keyword())).append(", ").append(generateContextQuery(ctx.comparator().keyword())).append(")) {\n");
@@ -667,7 +667,7 @@ public final class TemplateCompiler
 			}
 		}
 
-		compiled = (T) CompileHelper.getCompiledInstance(generate(template, options), options.getPackageName() + "." + options.getClassName(), options.getClassLoader(), options.getClassPath());
+		compiled = (T) CompileHelper.getCompiledInstance(generate(template, options), options.getPackageName() + "." + options.getClassName(), options.getClassLoader(), options.getClassPath(), options.getModulePath());
 
 		if (options.isCacheCompiledTemplate()) {
 			compiledCache.put(cacheKey, compiled);
