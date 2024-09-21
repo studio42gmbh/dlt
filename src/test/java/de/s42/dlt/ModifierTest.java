@@ -65,7 +65,7 @@ public class ModifierTest
 	public void evaluateModifierIsUUID() throws Exception
 	{
 		Assert.assertEquals(DLT.evaluate("${test:isUUID}"), "false");
-		Assert.assertEquals(DLT.evaluate("${set test \"123\"}${test:isUUID}"), "true");
+		Assert.assertEquals(DLT.evaluate("${set test \"123\"}${test:isUUID}"), "false");
 		Assert.assertEquals(DLT.evaluate("${set test \"d3348397-0cda-40ec-a7d2-a444964ab7b1\"}${test:isUUID}"), "true");
 	}
 
