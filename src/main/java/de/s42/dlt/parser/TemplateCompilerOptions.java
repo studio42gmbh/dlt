@@ -21,14 +21,14 @@ public class TemplateCompilerOptions
 	private final static String DEFAULT_GENERATED_CLASS_NAME = "Compiled";
 	private final static String DEFAULT_GENERATED_PACKAGE_NAME = "de.s42.dlt.template";
 
-	private String className = DEFAULT_GENERATED_CLASS_NAME;
-	private String packageName = DEFAULT_GENERATED_PACKAGE_NAME;
-	private ClassLoader classLoader = getClass().getClassLoader();
-	private String classPath;
+	protected String className = DEFAULT_GENERATED_CLASS_NAME;
+	protected String packageName = DEFAULT_GENERATED_PACKAGE_NAME;
+	protected ClassLoader classLoader = getClass().getClassLoader();
+	protected String classPath;
 	protected String modulePath;
-	private String templateId = "Unnamed";
-	private boolean debug = false;
-	private boolean cacheCompiledTemplate = true;
+	protected String templateId = "Unnamed";
+	protected boolean debug = false;
+	protected boolean cacheCompiledTemplate = true;
 
 	public TemplateCompilerOptions()
 	{
