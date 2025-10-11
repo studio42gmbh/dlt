@@ -1,0 +1,9 @@
+module:de.sft.dlt
+de.s42.dlt
+de.s42.dlt.parser
+de.s42.dlt.parser.antlr
+de.s42.dlt.parser.modifiers
+de.s42.dlt.parser.modifiers.arrays
+de.s42.dlt.parser.modifiers.math
+de.s42.dlt.parser.modifiers.strings
+de.s42.dlt.parser.modifiers.types
