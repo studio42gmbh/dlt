@@ -1,12 +1,12 @@
 /*
  * Copyright Studio 42 GmbH 2020. All rights reserved.
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * For details to the License read https://www.s42m.de/license
  */
 package de.s42.dlt.parser;
@@ -292,22 +292,22 @@ public abstract class AbstractTemplateContext implements TemplateContext
 		assert pathElements != null;
 		assert values != null;
 
-		//no values -> call with null
+		// No values -> call with null
 		if (values.length == 0) {
 			setBinding(pathElements, null);
-		} //just pass through 1 values as is
+		} // Just pass through 1 values as is
 		else if (values.length == 1) {
 			setBinding(pathElements, values[0]);
-		} //ocncatenate other amounts as string
+		} // Concatenate other amounts as string
 		else {
 
-			String value = "";
+			StringBuilder value = new StringBuilder();
 			for (Object v : values) {
-				value += ConversionHelper.convert(v, String.class);
+				value.append(ConversionHelper.convert(v, String.class));
 			}
 
 			//log.debug("setComplexBinding", Arrays.toString(pathElements), value);
-			setBinding(pathElements, value);
+			setBinding(pathElements, value.toString());
 		}
 	}
 
