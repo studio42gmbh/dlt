@@ -12,16 +12,16 @@ public class DLTTestTemplate implements CompiledTemplate
 @Override
 public String evaluate(TemplateContext context) throws Exception
 {
-//set 1:2
+//set 6:2
 context.setBinding("name","Thorsten");
-//set 2:2
+//set 7:2
 context.setBinding("adCampaignTemplate","DLTTest.template.adcampaign.dlt");
-//load 3:2
-context.load("LOAD_INIT", "de.s42.dlt.DLTTest$LoadInit", new Object[] {context.resolveBinding("name")});
-//set 4:2
+//load 8:2
+context.load("LOAD_INIT", "de.s42.dlt.DLTTest$LoadInit", new Object[] {context.resolveBinding("TestName")});
+//assert 9:2
+assert (boolean)context.resolveBinding(new String[] {"user"}, new String[] {"exists"}) : "user has to be set" + " - " + 9 + ":" + 2 + " in 'DLTTest.template.dlt'";
+//set 10:2
 context.setBinding( new String[] { "user", "firstName"}, new Object[] { "Stefan"});
-//assert 10:2
-assert (boolean)context.resolveBinding(new String[] {"user"}, new String[] {"exists"}) : "user has to be set" + " - " + 10 + ":" + 2 + " in 'DLTTest.template.dlt'";
 //set 11:2
 context.setBinding("productNameUppercase",context.resolveBinding(new String[] {"productName"}, new String[] {"upperCase"}));
 //text 12:0

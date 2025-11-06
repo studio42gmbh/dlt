@@ -20,8 +20,6 @@ import de.s42.dlt.parser.TemplateCallable;
 import de.s42.dlt.parser.TemplateCompilerOptions;
 import de.s42.dlt.parser.TemplateContext;
 import de.s42.dlt.parser.TemplateLoadable;
-import de.s42.log.LogManager;
-import de.s42.log.Logger;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,8 +33,7 @@ import org.testng.annotations.Test;
 public class DLTTest
 {
 
-	private final static Logger log = LogManager.getLogger(DLTTest.class.getName());
-
+	//private final static Logger log = LogManager.getLogger(DLTTest.class.getName());
 	public static class TestTemplateContext extends DefaultTemplateContext
 	{
 

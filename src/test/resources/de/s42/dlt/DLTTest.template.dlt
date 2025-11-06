@@ -1,13 +1,13 @@
-${set name "Thorsten"}>
-${set adCampaignTemplate "DLTTest.template.adcampaign.dlt"}>
-${load LOAD_INIT "de.s42.dlt.DLTTest$LoadInit" name}>
-${set user.firstName "Stefan"}>
-${# 
+${#
  *
- * This is a simple Email Template Example
+ * This is a complex Email Template Example
  *
 }>
+${set name "Thorsten"}>
+${set adCampaignTemplate "DLTTest.template.adcampaign.dlt"}>
+${load LOAD_INIT "de.s42.dlt.DLTTest$LoadInit" TestName}>
 ${assert user:exists "user has to be set"}>
+${set user.firstName "Stefan"}>
 ${set productNameUppercase productName:upperCase}>
 Dear ${user.firstName},
 

@@ -16,8 +16,6 @@ import de.s42.base.beans.BeanInfo;
 import de.s42.base.conversion.ConversionHelper;
 import de.s42.base.files.FilesHelper;
 import de.s42.dlt.DLT;
-import de.s42.log.LogManager;
-import de.s42.log.Logger;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
@@ -39,8 +37,7 @@ import org.json.JSONObject;
 public abstract class AbstractTemplateContext implements TemplateContext
 {
 
-	private final static Logger log = LogManager.getLogger(AbstractTemplateContext.class.getName());
-
+	//private final static Logger log = LogManager.getLogger(AbstractTemplateContext.class.getName());
 	private final Map<String, Object> bindings = new HashMap<>();
 	private final Map<String, Modifier> modifiers = new HashMap<>();
 	private StringBuilder content = new StringBuilder();
@@ -145,14 +142,17 @@ public abstract class AbstractTemplateContext implements TemplateContext
 		} else {
 			Object v = bindings.get(key);
 
-			if (v instanceof Integer) {
-				v = (Integer) v + 1;
-			} else if (v instanceof Long) {
-				v = (Long) v + 1L;
-			} else if (v instanceof Float) {
-				v = (Float) v + 1.0f;
-			} else if (v instanceof Double) {
-				v = (Double) v + 1.0;
+			switch (v) {
+				case Integer integer ->
+					v = integer + 1;
+				case Long aLong ->
+					v = aLong + 1L;
+				case Float aFloat ->
+					v = aFloat + 1.0f;
+				case Double aDouble ->
+					v = aDouble + 1.0;
+				default -> {
+				}
 			}
 
 			bindings.put(key, v);
@@ -167,14 +167,17 @@ public abstract class AbstractTemplateContext implements TemplateContext
 		} else {
 			Object v = bindings.get(key);
 
-			if (v instanceof Integer) {
-				v = (Integer) v - 1;
-			} else if (v instanceof Long) {
-				v = (Long) v - 1L;
-			} else if (v instanceof Float) {
-				v = (Float) v - 1.0f;
-			} else if (v instanceof Double) {
-				v = (Double) v - 1.0;
+			switch (v) {
+				case Integer integer ->
+					v = integer - 1;
+				case Long aLong ->
+					v = aLong - 1L;
+				case Float aFloat ->
+					v = aFloat - 1.0f;
+				case Double aDouble ->
+					v = aDouble - 1.0;
+				default -> {
+				}
 			}
 
 			bindings.put(key, v);
@@ -205,8 +208,8 @@ public abstract class AbstractTemplateContext implements TemplateContext
 		Object value = getBinding(key);
 
 		//special handling for TemplateCallable
-		if (value instanceof TemplateCallable) {
-			return ((TemplateCallable) value).call(this);
+		if (value instanceof TemplateCallable templateCallable) {
+			return templateCallable.call(this);
 		}
 
 		//null gets converted to an empty string to not producs 'null' in template generated string
@@ -259,8 +262,8 @@ public abstract class AbstractTemplateContext implements TemplateContext
 			Object value = getBinding(pathElements[0]);
 
 			//special handling for TemplateCallable
-			if (value instanceof TemplateCallable) {
-				return ((TemplateCallable) value).call(this);
+			if (value instanceof TemplateCallable templateCallable) {
+				return templateCallable.call(this);
 			}
 
 			for (int i = 1; i < pathElements.length; ++i) {
@@ -271,8 +274,8 @@ public abstract class AbstractTemplateContext implements TemplateContext
 				value = applyModifier(value, modifiers[i]);
 			}
 
-			if (value instanceof TemplateCallable) {
-				return ((TemplateCallable) value).call(this);
+			if (value instanceof TemplateCallable templateCallable) {
+				return templateCallable.call(this);
 			}
 
 			//null gets converted to an empty string to not producs 'null' in template generated string
@@ -293,21 +296,20 @@ public abstract class AbstractTemplateContext implements TemplateContext
 		assert values != null;
 
 		// No values -> call with null
-		if (values.length == 0) {
-			setBinding(pathElements, null);
-		} // Just pass through 1 values as is
-		else if (values.length == 1) {
-			setBinding(pathElements, values[0]);
-		} // Concatenate other amounts as string
-		else {
-
-			StringBuilder value = new StringBuilder();
-			for (Object v : values) {
-				value.append(ConversionHelper.convert(v, String.class));
+		switch (values.length) {
+			case 0 ->
+				setBinding(pathElements, null);
+			// Just pass through 1 values as is
+			case 1 ->
+				setBinding(pathElements, values[0]);
+			// Concatenate other amounts as string
+			default -> {
+				StringBuilder value = new StringBuilder();
+				for (Object v : values) {
+					value.append(ConversionHelper.convert(v, String.class));
+				}	//log.debug("setComplexBinding", Arrays.toString(pathElements), value);
+				setBinding(pathElements, value.toString());
 			}
-
-			//log.debug("setComplexBinding", Arrays.toString(pathElements), value);
-			setBinding(pathElements, value.toString());
 		}
 	}
 
@@ -342,27 +344,29 @@ public abstract class AbstractTemplateContext implements TemplateContext
 
 	private Object resolveProperty(Object obj, String property) throws Exception
 	{
-		if (obj == null) {
-			throw new Exception("Error resolveProperty - " + property);
-		}
+		switch (obj) {
+			case null ->
+				throw new Exception("Error resolveProperty - " + property);
+			case JSONObject jSONObject -> {
 
-		if (obj instanceof JSONObject) {
-
-			return ((JSONObject) obj).opt(property);
-		} else if (obj instanceof JSONArray) {
-
-			return ((JSONArray) obj).opt(Integer.parseInt(property));
-		} else {
-
-			BeanInfo info = BeanHelper.getBeanInfo(obj.getClass());
-
-			Object prop = info.read(obj, property);
-
-			if (prop instanceof TemplateCallable) {
-				return ((TemplateCallable) prop).call(this);
+				return jSONObject.opt(property);
 			}
+			case JSONArray jSONArray -> {
 
-			return prop;
+				return jSONArray.opt(Integer.parseInt(property));
+			}
+			default -> {
+
+				BeanInfo info = BeanHelper.getBeanInfo(obj.getClass());
+
+				Object prop = info.read(obj, property);
+
+				if (prop instanceof TemplateCallable templateCallable) {
+					return templateCallable.call(this);
+				}
+
+				return prop;
+			}
 		}
 	}
 
@@ -417,8 +421,8 @@ public abstract class AbstractTemplateContext implements TemplateContext
 		try {
 			Object loaded = Class.forName(load).getConstructor().newInstance();
 
-			if (loaded instanceof TemplateLoadable) {
-				loaded = ((TemplateLoadable) loaded).load(this, parameters);
+			if (loaded instanceof TemplateLoadable templateLoadable) {
+				loaded = templateLoadable.load(this, parameters);
 			}
 
 			setBinding(key, loaded);
