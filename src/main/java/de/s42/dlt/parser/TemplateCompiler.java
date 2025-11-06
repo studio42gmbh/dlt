@@ -16,8 +16,6 @@ import de.s42.base.compile.InvalidCompilation;
 import de.s42.dlt.parser.antlr.DLTLexer;
 import de.s42.dlt.parser.antlr.DLTParser;
 import de.s42.dlt.parser.antlr.DLTParserBaseListener;
-import de.s42.log.LogManager;
-import de.s42.log.Logger;
 import java.util.EmptyStackException;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,8 +37,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 public final class TemplateCompiler
 {
 
-	private final static Logger log = LogManager.getLogger(TemplateCompiler.class.getName());
-
+	//private final static Logger log = LogManager.getLogger(TemplateCompiler.class.getName());
 	//@todo DLT how to allow purging cache - this singleton map is rather dangerous if you parse many templates or can not ensure unique templateIds
 	private static final Map<String, CompiledTemplate> compiledCache = new HashMap();
 

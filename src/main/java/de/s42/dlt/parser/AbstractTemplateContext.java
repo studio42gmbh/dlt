@@ -37,6 +37,8 @@ import org.json.JSONObject;
 public abstract class AbstractTemplateContext implements TemplateContext
 {
 
+	public final static String BINDING_TEMPLATE_ID = "__TEMPLATE_ID__";
+
 	//private final static Logger log = LogManager.getLogger(AbstractTemplateContext.class.getName());
 	private final Map<String, Object> bindings = new HashMap<>();
 	private final Map<String, Modifier> modifiers = new HashMap<>();
@@ -47,6 +49,15 @@ public abstract class AbstractTemplateContext implements TemplateContext
 	private String classPath;
 	private Path workingDirectory;
 	private boolean cacheCompiledTemplates;
+
+	public AbstractTemplateContext()
+	{
+	}
+
+	public AbstractTemplateContext(String templateId)
+	{
+		setBinding(BINDING_TEMPLATE_ID, templateId);
+	}
 
 	@Override
 	public void pushSection(String section)
@@ -409,7 +420,14 @@ public abstract class AbstractTemplateContext implements TemplateContext
 			options.setTemplateId(templateId);
 			options.setCacheCompiledTemplate(isCacheCompiledTemplates());
 
-			return DLT.evaluate(source, options, this);
+			Object oldTemplateId = getBinding(BINDING_TEMPLATE_ID);
+			setBinding(BINDING_TEMPLATE_ID, templateId);
+
+			String eval = DLT.evaluate(source, options, this);
+
+			setBinding(BINDING_TEMPLATE_ID, oldTemplateId);
+
+			return eval;
 		} catch (Exception ex) {
 			throw new Exception("Error evaluating template - " + ex.getMessage(), ex);
 		}

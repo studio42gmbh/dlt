@@ -1,12 +1,12 @@
 /*
  * Copyright Studio 42 GmbH 2020. All rights reserved.
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * For details to the License read https://www.s42m.de/license
  */
 package de.s42.dlt.parser;
@@ -14,29 +14,21 @@ package de.s42.dlt.parser;
 import de.s42.base.date.Now;
 import de.s42.base.files.FilesHelper;
 import de.s42.dlt.parser.modifiers.Exists;
-import de.s42.dlt.parser.modifiers.math.Greater0;
-import de.s42.dlt.parser.modifiers.math.Sqrt;
 import de.s42.dlt.parser.modifiers.arrays.IsArray;
 import de.s42.dlt.parser.modifiers.arrays.IsNotEmptyArray;
-import de.s42.dlt.parser.modifiers.types.IsEmail;
-import de.s42.dlt.parser.modifiers.types.IsFloat;
-import de.s42.dlt.parser.modifiers.strings.IsMethodName;
-import de.s42.dlt.parser.modifiers.types.IsUUID;
-import de.s42.dlt.parser.modifiers.strings.IsVariableName;
-import de.s42.dlt.parser.modifiers.strings.IsVariableNameOrNull;
 import de.s42.dlt.parser.modifiers.arrays.Length;
 import de.s42.dlt.parser.modifiers.arrays.ToArray;
+import de.s42.dlt.parser.modifiers.math.Greater0;
+import de.s42.dlt.parser.modifiers.math.Sqrt;
 import de.s42.dlt.parser.modifiers.strings.ConstantCase;
 import de.s42.dlt.parser.modifiers.strings.EscapeHtml;
 import de.s42.dlt.parser.modifiers.strings.EscapeString;
 import de.s42.dlt.parser.modifiers.strings.Indent;
+import de.s42.dlt.parser.modifiers.strings.IsMethodName;
+import de.s42.dlt.parser.modifiers.strings.IsVariableName;
+import de.s42.dlt.parser.modifiers.strings.IsVariableNameOrNull;
 import de.s42.dlt.parser.modifiers.strings.LowerCase;
 import de.s42.dlt.parser.modifiers.strings.LowerCaseFirst;
-import de.s42.dlt.parser.modifiers.types.IsBoolean;
-import de.s42.dlt.parser.modifiers.types.IsDouble;
-import de.s42.dlt.parser.modifiers.types.IsInteger;
-import de.s42.dlt.parser.modifiers.types.IsLong;
-import de.s42.dlt.parser.modifiers.types.IsString;
 import de.s42.dlt.parser.modifiers.strings.NotBlank;
 import de.s42.dlt.parser.modifiers.strings.QuoteString;
 import de.s42.dlt.parser.modifiers.strings.RemoveWhiteSpaces;
@@ -45,6 +37,14 @@ import de.s42.dlt.parser.modifiers.strings.ToString;
 import de.s42.dlt.parser.modifiers.strings.TwoDigit;
 import de.s42.dlt.parser.modifiers.strings.UpperCase;
 import de.s42.dlt.parser.modifiers.strings.UpperCaseFirst;
+import de.s42.dlt.parser.modifiers.types.IsBoolean;
+import de.s42.dlt.parser.modifiers.types.IsDouble;
+import de.s42.dlt.parser.modifiers.types.IsEmail;
+import de.s42.dlt.parser.modifiers.types.IsFloat;
+import de.s42.dlt.parser.modifiers.types.IsInteger;
+import de.s42.dlt.parser.modifiers.types.IsLong;
+import de.s42.dlt.parser.modifiers.types.IsString;
+import de.s42.dlt.parser.modifiers.types.IsUUID;
 import de.s42.dlt.parser.modifiers.types.UnwrapPrimitives;
 import java.util.HashMap;
 import java.util.Map;
@@ -121,6 +121,14 @@ public class DefaultTemplateContext extends AbstractTemplateContext
 
 	public DefaultTemplateContext()
 	{
+		initBaseValues();
+		initDefaultBindings();
+		initDefaultModifiers();
+	}
+
+	public DefaultTemplateContext(String templateId)
+	{
+		super(templateId);
 		initBaseValues();
 		initDefaultBindings();
 		initDefaultModifiers();
