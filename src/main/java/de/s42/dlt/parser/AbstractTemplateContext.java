@@ -54,6 +54,7 @@ public abstract class AbstractTemplateContext implements TemplateContext
 	{
 	}
 
+	@SuppressWarnings("OverridableMethodCallInConstructor")
 	public AbstractTemplateContext(String templateId)
 	{
 		setBinding(BINDING_TEMPLATE_ID, templateId);
