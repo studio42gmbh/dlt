@@ -29,13 +29,13 @@ package de.s42.dlt.nodes;
  *
  * @author Benjamin Schiller
  */
-public class IfCodeEmitter implements CodeEmitter
+public class IfNode implements CodeEmitter
 {
 
-	@AsNode(name = "If", emitter = IfCodeEmitter.class)
-	public static void ifNode(Boolean condition)
+	@AsNode(name = "basic.If", emitter = IfNode.class)
+	public static void ifNode(Object condition)
 	{
-		// Code is emitted via annotation emitter
+		// Code is emitted only via emitter
 	}
 
 	@Override

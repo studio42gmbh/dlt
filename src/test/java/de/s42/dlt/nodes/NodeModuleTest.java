@@ -52,18 +52,16 @@ public class NodeModuleTest
 		core.defineType(NodeModule.class, "NodeModule");
 		core.definePragma(new LoadNodeClassPragma());
 		core.setAllowDefinePragmas(false);
-		core.doPragma("loadNodeClass", "de.s42.dlt.nodes.NodeBasics");
-		core.doPragma("loadNodeClass", "de.s42.dlt.nodes.IfCodeEmitter");
-		core.doPragma("loadNodeClass", "de.s42.dlt.nodes.ReturnCodeEmitter");
+		core.doPragma("loadNodeClass", BasicNodes.class.getName());
+		core.doPragma("loadNodeClass", ReturnNode.class.getName());
+		core.doPragma("loadNodeClass", IfNode.class.getName());
+		core.doPragma("loadNodeClass", ForNode.class.getName());
 		core.setAllowUsePragmas(false);
 
 		DLInstance nodeModuleInstance = core.parse("de/s42/dlt/nodes/Test.nodes.dl");
 
-		//log.info(DLHelper.describe(nodeModuleInstance));
-		//log.info(DLHelper.toString(nodeModuleInstance, true, 2));
 		NodeModule nodeModule = (NodeModule) nodeModuleInstance.getChildAsJavaObject(0);
 
-		//log.info(StringHelper.toString(nodeModule));
 		String code = nodeModule.emitCode();
 
 		log.info("Java Code:\n\n" + code + "\n");

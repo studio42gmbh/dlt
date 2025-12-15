@@ -25,76 +25,36 @@
 //</editor-fold>
 package de.s42.dlt.nodes;
 
-import de.s42.dl.types.DLContainer;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 /**
  *
  * @author Benjamin Schiller
  */
-public class Node implements DLContainer<Node>
+public class ForNode implements CodeEmitter
 {
 
-	protected String name;
-	protected String nodeClass;
-	protected String nodeMethod;
-	protected Object[] parameters;
-
-	protected final List<Node> children = new ArrayList<>();
-
-	@Override
-	public void addChild(String name, Node child)
+	@AsNode(name = "basic.For", emitter = ForNode.class)
+	public static void forNode(Node list, String loopVarName)
 	{
-		children.add(child);
+		// Code is emitted only via emitter
 	}
 
 	@Override
-	public List<Node> getChildren()
+	public void emitCode(StringBuilder builder, Node node) throws Exception
 	{
-		return Collections.unmodifiableList(children);
-	}
+		builder.append("\n\n// ").append(node.getName());
 
-	// <editor-fold desc="Getters/Setters" defaultstate="collapsed">
-	public Object[] getParameters()
-	{
-		return parameters;
-	}
+		Node list = (Node) node.getParameters()[0];
+		String loopVarName = (String) node.getParameters()[1];
 
-	public void setParameters(Object[] parameters)
-	{
-		this.parameters = parameters;
-	}
+		builder
+			.append("\nfor (var ")
+			.append(loopVarName)
+			.append(" : ")
+			.append(list.getName())
+			.append(") {");
 
-	public String getNodeClass()
-	{
-		return nodeClass;
-	}
+		NodeModule.emitCode(builder, node.getChildren());
 
-	public void setNodeClass(String nodeClass)
-	{
-		this.nodeClass = nodeClass;
+		builder.append("\n}");
 	}
-
-	public String getNodeMethod()
-	{
-		return nodeMethod;
-	}
-
-	public void setNodeMethod(String nodeMethod)
-	{
-		this.nodeMethod = nodeMethod;
-	}
-
-	public String getName()
-	{
-		return name;
-	}
-
-	public void setName(String name)
-	{
-		this.name = name;
-	}
-	// "Getters/Setters" </editor-fold>
 }

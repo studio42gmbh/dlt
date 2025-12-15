@@ -1,50 +1,50 @@
 
 NodeModule nodes {
 
-	StaticBoolean config1 @export {
-		parameters: true;
+	basic.Boolean config1 @export {
+		arg0: true;
 	}
 
-	If {
-		parameters: $config1;
+	basic.If {
+		arg0: $config1;
 
-		StaticBoolean config2 @export {
-			parameters: false;
+		basic.Boolean config2 @export {
+			arg0: true;
 		}
 
-		If {
-			parameters: $config2;
+		basic.If {
+			arg0: $config2;
 
-			Multiply mul1 @export {
-				parameters: 7.0, 6.23;
+			basic.Multiply mul1 @export {
+				arg0: 7.0 * 2.0;
+				arg1: 6.23;
 			}
 
-			Return {
-				parameters : $mul1;
+			basic.Return {
+				arg0 : $mul1;
 			}
 		}
 	}
 
-	StaticFloat node1 @export {
-		parameters : 5.0;
+	basic.Float node1 @export {
+		arg0 : 5.0;
 	}
 
-	Floats numbers1 @export {
-		parameters : 1.0, 2.0, $node1;
+	basic.Floats numbers1 @export {
+		arg0 : 1.0, 2.0, $node1;
 	}
 
-/*
+	basic.For {
+		arg0: $numbers1;
+		arg1: numberC;
 
-	For {
-		parameters: $numbers1, numberC;
-
-		Multiply mulFor @export {
-			parameters: numberC, $mulFor;
+		basic.Multiply mulFor @export {
+			arg0: 2.34;
+			arg1: 1.23;
 		}
 	}
-*/
 
-	Return {
-		parameters : $numbers1;
+	basic.Return {
+		arg0 : $node1;
 	}
 }

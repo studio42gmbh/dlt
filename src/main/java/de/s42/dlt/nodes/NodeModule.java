@@ -71,9 +71,7 @@ public class NodeModule implements DLContainer<Node>
 			"""
 		);
 
-		for (Node node : children) {
-			emitCode(builder, node);
-		}
+		emitCode(builder, children);
 
 		builder.append(
 			"""

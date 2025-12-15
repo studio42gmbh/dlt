@@ -29,13 +29,13 @@ package de.s42.dlt.nodes;
  *
  * @author Benjamin Schiller
  */
-public class ReturnCodeEmitter implements CodeEmitter
+public class ReturnNode implements CodeEmitter
 {
 
-	@AsNode(name = "Return", emitter = ReturnCodeEmitter.class)
+	@AsNode(name = "basic.Return", emitter = ReturnNode.class)
 	public static void returnResult(Object result)
 	{
-		// Code is emitted via annotation emitter
+		// Code is emitted only via emitter
 	}
 
 	@Override
@@ -46,12 +46,18 @@ public class ReturnCodeEmitter implements CodeEmitter
 		// Node
 		if (value instanceof Node nodeValue) {
 
-			builder.append("\n\nif (true) {\nreturn ").append(nodeValue.getName()).append(";\n}");
+			builder
+				.append("\n\nif (true) {\nreturn ")
+				.append(nodeValue.getName())
+				.append(";\n}");
 
 			return;
 		}
 
 		// Other types
-		builder.append("\n\nif (true) {\nreturn ").append(value).append(";\n}");
+		builder
+			.append("\n\nif (true) {\nreturn ")
+			.append(value)
+			.append(";\n}");
 	}
 }

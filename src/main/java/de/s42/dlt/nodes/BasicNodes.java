@@ -31,26 +31,26 @@ import de.s42.base.conversion.ConversionHelper;
  *
  * @author Benjamin Schiller
  */
-public final class NodeBasics
+public final class BasicNodes
 {
 
 	// Node Multiply
-	@AsNode(name = "Multiply")
-	public static Number multiply(Number value1, Number value2)
+	@AsNode(name = "basic.Multiply")
+	public static Number nodeMultiply(Number value1, Number value2)
 	{
 		return value1.doubleValue() * value2.doubleValue();
 	}
 
 	// Node StaticBoolean
-	@AsNode(name = "StaticBoolean")
-	public static boolean staticBoolean(boolean value)
+	@AsNode(name = "basic.Boolean")
+	public static boolean nodeBoolean(boolean value)
 	{
 		return value;
 	}
 
 	// Node StaticFloat
-	@AsNode(name = "StaticFloat")
-	public static float staticFloat(Double value)
+	@AsNode(name = "basic.Float")
+	public static float nodeFloat(Double value)
 	{
 		return ConversionHelper.convert(value, Float.class);
 	}
@@ -72,7 +72,8 @@ public final class NodeBasics
 				.append("(");
 
 			boolean first = true;
-			for (Object value : node.getParameters()) {
+			Object[] params = (Object[]) node.getParameters()[0];
+			for (Object value : params) {
 
 				if (!first) {
 					builder.append(", ");
@@ -90,13 +91,13 @@ public final class NodeBasics
 		}
 	}
 
-	@AsNode(name = "Floats", emitter = FloatsEmitter.class)
-	public static final float[] convertToFloats(Number... numbers)
+	@AsNode(name = "basic.Floats", emitter = FloatsEmitter.class)
+	public static final float[] nodeFloats(Object... numbers)
 	{
 		float[] floats = new float[numbers.length];
 
 		for (int i = 0; i < numbers.length; ++i) {
-			floats[i] = numbers[i].floatValue();
+			floats[i] = ((Number) numbers[i]).floatValue();
 		}
 
 		return floats;

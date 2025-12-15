@@ -25,18 +25,15 @@
 //</editor-fold>
 package de.s42.dlt.nodes;
 
-import de.s42.dl.DLAttribute;
 import de.s42.dl.DLCore;
-import de.s42.dl.DLType;
-import de.s42.dl.attributes.DefaultDLAttribute;
 import de.s42.dl.exceptions.DLException;
 import de.s42.dl.exceptions.InvalidPragma;
 import de.s42.dl.pragmas.AbstractDLPragma;
+import de.s42.dl.util.DLHelper;
 import de.s42.log.LogManager;
 import de.s42.log.Logger;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.lang.reflect.Parameter;
 
 /**
  *
@@ -63,60 +60,29 @@ public class LoadNodeClassPragma extends AbstractDLPragma
 	@Override
 	public void doPragma(DLCore core, Object... parameters) throws InvalidPragma
 	{
-		assert core != null;
+		log.trace("doPragma");
 
 		parameters = validateParameters(parameters, new Class[]{Class.class});
 
 		final Class nodeClass = (Class) parameters[0];
 
-		//log.debug("Loading node class", nodeClass.getName());
+		log.trace("doPragma:foundClass", nodeClass.getName());
+
 		// Find public static methods in this class
 		for (Method method : nodeClass.getDeclaredMethods()) {
 
 			if (Modifier.isStatic(method.getModifiers())
 				&& Modifier.isPublic(method.getModifiers())) {
 
-				// Get the @AsNode annotation
-				AsNode asNode = method.getAnnotation(AsNode.class);
+				log.trace("doPragma:foundMethod", method.getName());
 
-				//log.debug("Found", method.getName());
 				// Construct virtual DLType
 				try {
 
-					NodeDLType nodeType = new NodeDLType();
+					NodeDLType nodeType = new NodeDLType(method, core);
 
-					// Name is either class name plus methode name or the custom name from AsNode.name
-					String typeName = nodeClass.getName() + "." + method.getName();
-					if (asNode != null
-						&& !asNode.name().isBlank()) {
-						typeName = asNode.name();
-					}
-					nodeType.setName(typeName);
+					log.trace(DLHelper.describe(nodeType));
 
-					// Parse the given parameters and add them
-					for (Parameter parameter : method.getParameters()) {
-
-						DLType parameterType = core.getType(parameter.getType()).orElseThrow();
-
-						DefaultDLAttribute attribute = new DefaultDLAttribute(parameter.getName(), parameterType, nodeType);
-
-						nodeType.addAttribute(attribute);
-					}
-
-					// Synthetic Attribute nodeClass
-					DLType stringDLType = core.getType(String.class).orElseThrow();
-					DLAttribute nodeClassAttr = new DefaultDLAttribute("nodeClass", stringDLType, nodeType, nodeClass.getName());
-					nodeType.addAttribute(nodeClassAttr);
-
-					// Synthetic Attribute nodeClass
-					DLAttribute nodeMethodAttr = new DefaultDLAttribute("nodeMethod", stringDLType, nodeType, method.getName());
-					nodeType.addAttribute(nodeMethodAttr);
-
-					// Make Node its virtual parent
-					DLType nClass = core.getType(Node.class).orElseThrow();
-					nodeType.addParent(nClass);
-
-					//log.debug(DLHelper.describe(nodeType));
 					// Register the new virtual type
 					core.defineType(nodeType);
 
