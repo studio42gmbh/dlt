@@ -367,6 +367,10 @@ public abstract class AbstractTemplateContext implements TemplateContext
 
 				return jSONArray.opt(Integer.parseInt(property));
 			}
+			case Map map -> {
+
+				return map.get(property);
+			}
 			default -> {
 
 				BeanInfo info = BeanHelper.getBeanInfo(obj.getClass());
